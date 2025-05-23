@@ -41,11 +41,11 @@ def run_extraction(image_path, mask_path, param_path=None, output_csv=None):
         print(f"\nCSV 저장 완료: {output_csv}")
 
 def main():
-    print("PyRadiomics 특징 추출기")
-    image_path = input("CT 이미지 경로 (폴더 또는 .nii.gz): ").strip()
-    mask_path = input("마스크 경로 (.nii.gz): ").strip()
-    param_path = input("YAML 설정 경로 (없으면 Enter): ").strip()
-    output_csv = input("저장할 CSV 파일명 (예: output.csv): ").strip()
+    print("두근두근해지는 시간")
+    image_path = input("CT 이미지 경로 적어줘임: ").strip()
+    mask_path = input("마스크 경로 적어줘잉: ").strip()
+    param_path = input("YAML 설정 경로 적어줘잉: ").strip()
+    output_csv = input("저장할 CSV 파일명 적어줘잉: ").strip()
 
     run_extraction(
         image_path=image_path,
