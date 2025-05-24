@@ -10,17 +10,17 @@ def load_dicom_folder(dicom_folder):
         dicom_names = reader.GetGDCMSeriesFileNames(dicom_folder)
         reader.SetFileNames(dicom_names)
         image = reader.Execute()
-        return sitk.GetArrayFromImage(image)  # (z, y, x)
+        return sitk.GetArrayFromImage(image)  
     except Exception as e:
-        print(f"DICOM 로딩 실패: {e}")
+        print(f"DICOM 파일이 아닌 거 아닐까!: {e}")
         return None
 
 def load_nifti_mask(mask_path):
     try:
         data = nib.load(mask_path).get_fdata()
-        return np.transpose(data, (2, 1, 0))  # (x, y, z) → (z, y, x)
+        return np.transpose(data, (2, 1, 0))  ##SimpleITK가 갖고 있는 좌표는 Z, Y, X라는 걸 확인
     except Exception as e:
-        print(f"마스크 로딩 실패: {e}")
+        print(f"마스크 파일이 아닌 거 아닐까!: {e}")
         return None
 
 def main():
@@ -49,10 +49,10 @@ def main():
     hu_values = ct_data[mask_data > 0]
 
     if hu_values.size == 0:
-        print("마스크된 영역이 없습니다.")
+        print("이게 뭔 소리야 마스크가 없다니")
         return
-    bins = np.linspace(-100, 401, 100)
-    hist_counts, hist_bins = np.histogram(hu_values, bin=bins)
+    bins = np.arange(-200, 1001, 1)
+    hist_counts, hist_bins = np.histogram(hu_values, bins=bins)
 
     hist_centers = (hist_bins[:-1]+hist_bins[1:])/2
     df = pd.DataFrame({'Bin Center': hist_centers, 'Count': hist_counts})
