@@ -53,10 +53,10 @@ def main():
         return
     bins = np.arange(-200, 1001, 1)
     hist_counts, hist_bins = np.histogram(hu_values, bins=bins)
-
+    hist_portions = hist_counts/hist_counts.sum()
     hist_centers = (hist_bins[:-1]+hist_bins[1:])/2
-    df = pd.DataFrame({'Bin Center': hist_centers, 'Count': hist_counts})
-    df.to_csv('Test', index=False)
+    df = pd.DataFrame({'Bin Center': hist_centers.astype(int), 'Portions': hist_portions})
+    df.to_csv(output_path, index=False)
   
 if __name__ == "__main__":
     main()
